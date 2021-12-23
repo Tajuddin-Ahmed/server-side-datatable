@@ -10,101 +10,103 @@
     <title>php crud with ajax</title>
 </head>
 
-<body>
+<body class="bg-light">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h4 class="text-center text-danger">Server Side Data Table</h4>
+    <div class=" container bg-white mt-5 shadow">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="text-center text-danger pb-3">SERVER SIDE DATA TABLE BY PHP,AJAX AND JQUERY</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="mt-2 text-primary">ALL USERS IN DATABASE</h4>
+                </div>
+                <div class="col-lg-6">
+                    <button id="#userModal" data-bs-target="#userModal" data-bs-toggle="modal" class="btn  btn-primary m-1 float-end"> <i class="fas fa-user-plus fa-lg"></i>&nbsp;&nbsp; Add New User</button>
+                    <a href="action.php?export=excel" class="btn btn-success m-1 float-end"> <i class="fas fa-table fa-lg"></i>&nbsp;&nbsp; Export to Excel</a>
+                </div>
+            </div>
+            <hr class="my-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive" id="showUser">
+                        <h3 class="text-center text-success" style="margin-top:150px;">Loading ...</h3>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h4 class="mt-2 text-primary">All users in Database</h4>
-            </div>
-            <div class="col-lg-6">
-                <button id="#userModal" data-bs-target="#userModal" data-bs-toggle="modal" class="btn  btn-primary m-1 float-end"> <i class="fas fa-user-plus fa-lg"></i>&nbsp;&nbsp; Add New User</button>
-                <a href="action.php?export=excel" class="btn btn-success m-1 float-end"> <i class="fas fa-table fa-lg"></i>&nbsp;&nbsp; Export to Excel</a>
+        <!-- Add New User Modal -->
+        <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body px-4">
+                        <form action="" method="post" id="form-data">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="fname" placeholder="First Name" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="lname" placeholder="Last Name" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" name="phone" placeholder="Phone" required>
+                            </div>
+                            <br>
+                            <div class="form-group d-grid gap-2">
+                                <input type="submit" name="insert" class="btn btn-danger" id="insert" value="Add User" placeholder="Phone" required>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <hr class="my-1">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive" id="showUser">
-                    <h3 class="text-center text-success" style="margin-top:150px;">Loading ...</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Add New User Modal -->
-    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body px-4">
-                    <form action="" method="post" id="form-data">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="fname" placeholder="First Name" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="lname" placeholder="Last Name" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="tel" class="form-control" name="phone" placeholder="Phone" required>
-                        </div>
-                        <br>
-                        <div class="form-group d-grid gap-2">
-                            <input type="submit" name="insert" class="btn btn-danger" id="insert" value="Add User" placeholder="Phone" required>
-                        </div>
-                    </form>
-                </div>
 
-            </div>
-        </div>
-    </div>
+        <!-- edit User Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body px-4">
+                        <form action="" method="post" id="editform-data">
+                            <div class="form-group">
+                                <input type="hidden" name="id" id="id">
+                                <input type="text" class="form-control" name="fname" id="fname" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="lname" id="lname" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="email" id="email" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" name="phone" id="phone" required>
+                            </div>
+                            <br>
+                            <div class="form-group d-grid gap-2">
+                                <input type="submit" name="edit" class="btn btn-primary" id="edit" value="Edit User" placeholder="Phone" required>
+                            </div>
+                        </form>
+                    </div>
 
-    <!-- edit User Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body px-4">
-                    <form action="" method="post" id="editform-data">
-                        <div class="form-group">
-                            <input type="hidden" name="id" id="id">
-                            <input type="text" class="form-control" name="fname" id="fname" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="lname" id="lname" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="email" class="form-control" name="email" id="email" required>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="tel" class="form-control" name="phone" id="phone" required>
-                        </div>
-                        <br>
-                        <div class="form-group d-grid gap-2">
-                            <input type="submit" name="edit" class="btn btn-primary" id="edit" value="Edit User" placeholder="Phone" required>
-                        </div>
-                    </form>
-                </div>
-
             </div>
         </div>
     </div>
